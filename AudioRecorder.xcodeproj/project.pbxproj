@@ -10,6 +10,7 @@
 		640E05641A78D9710087C659 /* NSString+DocumentDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 640E05631A78D9710087C659 /* NSString+DocumentDirectory.m */; };
 		640E05681A78DA1A0087C659 /* NTComposeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 640E05671A78DA1A0087C659 /* NTComposeHelper.m */; };
 		640E056A1A78DAAC0087C659 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 640E05691A78DAAC0087C659 /* AVFoundation.framework */; };
+		640E056F1A78E92B0087C659 /* NTAudioDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 640E056E1A78E92B0087C659 /* NTAudioDataHelper.m */; };
 		6421D3271A67D4EA00890F80 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6421D3261A67D4EA00890F80 /* main.m */; };
 		6421D32A1A67D4EA00890F80 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6421D3291A67D4EA00890F80 /* AppDelegate.m */; };
 		6421D32D1A67D4EA00890F80 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6421D32C1A67D4EA00890F80 /* ViewController.m */; };
@@ -37,6 +38,8 @@
 		640E05661A78DA1A0087C659 /* NTComposeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTComposeHelper.h; sourceTree = "<group>"; };
 		640E05671A78DA1A0087C659 /* NTComposeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTComposeHelper.m; sourceTree = "<group>"; };
 		640E05691A78DAAC0087C659 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		640E056D1A78E92B0087C659 /* NTAudioDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTAudioDataHelper.h; sourceTree = "<group>"; };
+		640E056E1A78E92B0087C659 /* NTAudioDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTAudioDataHelper.m; sourceTree = "<group>"; };
 		6421D3211A67D4EA00890F80 /* AudioRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6421D3251A67D4EA00890F80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6421D3261A67D4EA00890F80 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -102,10 +105,19 @@
 		640E05611A78D65E0087C659 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				640E05661A78DA1A0087C659 /* NTComposeHelper.h */,
-				640E05671A78DA1A0087C659 /* NTComposeHelper.m */,
 			);
 			name = Utils;
+			sourceTree = "<group>";
+		};
+		640E056C1A78E9070087C659 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				640E05661A78DA1A0087C659 /* NTComposeHelper.h */,
+				640E05671A78DA1A0087C659 /* NTComposeHelper.m */,
+				640E056D1A78E92B0087C659 /* NTAudioDataHelper.h */,
+				640E056E1A78E92B0087C659 /* NTAudioDataHelper.m */,
+			);
+			name = Helper;
 			sourceTree = "<group>";
 		};
 		6421D3181A67D4EA00890F80 = {
@@ -131,6 +143,7 @@
 		6421D3231A67D4EA00890F80 /* AudioRecorder */ = {
 			isa = PBXGroup;
 			children = (
+				640E056C1A78E9070087C659 /* Helper */,
 				640E05611A78D65E0087C659 /* Utils */,
 				640E05601A78D6530087C659 /* ViewControllers */,
 				640E055F1A78D6470087C659 /* Categories */,
@@ -232,6 +245,11 @@
 				TargetAttributes = {
 					6421D3201A67D4EA00890F80 = {
 						CreatedOnToolsVersion = 6.1.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					6421D3391A67D4EA00890F80 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -316,6 +334,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				640E056F1A78E92B0087C659 /* NTAudioDataHelper.m in Sources */,
 				6421D32D1A67D4EA00890F80 /* ViewController.m in Sources */,
 				6421D32A1A67D4EA00890F80 /* AppDelegate.m in Sources */,
 				640E05641A78D9710087C659 /* NSString+DocumentDirectory.m in Sources */,
