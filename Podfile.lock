@@ -1,13 +1,17 @@
 PODS:
-  - EZAudio (0.0.6)
+  - Novocaine (0.0.1)
   - TheAmazingAudioEngine (1.4.5)
 
 DEPENDENCIES:
-  - EZAudio (= 0.0.6)
+  - Novocaine (from `/Users/demon/project/novocaine/Novocaine.podspec`)
   - TheAmazingAudioEngine (= 1.4.5)
 
+EXTERNAL SOURCES:
+  Novocaine:
+    :path: /Users/demon/project/novocaine/Novocaine.podspec
+
 SPEC CHECKSUMS:
-  EZAudio: 2f2e5a5094d29ab91d45b229a75c3c31ee26ed1f
+  Novocaine: fad2aae65596511890ed3e189569cd6da8f37e33
   TheAmazingAudioEngine: 34279bc2841262eae7a24c3c7944a43fab72918e
 
 COCOAPODS: 0.34.2
