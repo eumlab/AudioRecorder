@@ -45,7 +45,6 @@ static NSString * const kConnectedFileName  = @"ConnectedRecord.aiff";
 #endif
 
 @property (nonatomic,assign) UInt32 maxMemoryCacheCount;
-@property (nonatomic,assign) int preRecordFrameEx;
 @end
 
 @implementation ViewController
@@ -301,19 +300,15 @@ static NSString * const kConnectedFileName  = @"ConnectedRecord.aiff";
 -(void)realtimeProcessWithBufferList:(AudioBufferList*)bufferList
                            numFrames:(UInt32)numFrames
 {
-    if (self.preRecordFrameEx<10) {
+    if (self.recordState==kRecordRecording) {
+        AEAudioFileWriterAddAudio(self.fileWriter, bufferList, numFrames);
+    }else if (self.recordState==kRecordPrerecording){
         AudioBufferList audioBufferList = *bufferList;
         NSData * dataBytes = [NSData dataWithBytes:audioBufferList.mBuffers[0].mData
                                             length:audioBufferList.mBuffers[0].mDataByteSize];
         [self.sampleCacheList addObject:dataBytes];
         if (self.sampleCacheList.count>self.maxMemoryCacheCount) {
             [self.sampleCacheList removeObjectAtIndex:0];
-        }
-    }
-    if (self.recordState==kRecordRecording) {
-        AEAudioFileWriterAddAudio(self.fileWriter, bufferList, numFrames);
-        if(self.preRecordFrameEx<10){
-            self.preRecordFrameEx++;
         }
     }
 }
