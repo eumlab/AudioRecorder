@@ -11,11 +11,8 @@
 @implementation NSString (DocumentDirectory)
 -(NSURL*)fileURLInDocumentDirectory
 {
-    NSArray *combinedPathComponents = [NSArray arrayWithObjects:
-                                       [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject],
-                                       self,
-                                       nil];
-    NSURL *documentURL = [NSURL fileURLWithPathComponents:combinedPathComponents];
-    return documentURL;
+    NSArray *combinedPathComponents =
+    @[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject],self];
+    return [NSURL fileURLWithPathComponents:combinedPathComponents];
 }
 @end
