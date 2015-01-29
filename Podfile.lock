@@ -3,12 +3,12 @@ PODS:
   - TheAmazingAudioEngine (1.4.5)
 
 DEPENDENCIES:
-  - Novocaine (from `/Users/demon/project/novocaine/Novocaine.podspec`)
+  - Novocaine (from `git@github.com:demon1105/novocaine.git`)
   - TheAmazingAudioEngine (= 1.4.5)
 
 EXTERNAL SOURCES:
   Novocaine:
-    :path: /Users/demon/project/novocaine/Novocaine.podspec
+    :git: git@github.com:demon1105/novocaine.git
 
 SPEC CHECKSUMS:
   Novocaine: fad2aae65596511890ed3e189569cd6da8f37e33
