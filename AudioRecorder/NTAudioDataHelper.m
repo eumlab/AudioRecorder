@@ -7,10 +7,11 @@
 //
 
 #import "NTAudioDataHelper.h"
-#import <pthread.h>
 @interface NTAudioDataHelper()
-@property (nonatomic,assign) float * outputBuffer;
 @property (nonatomic,assign) UInt32 numChannels;
+@property (nonatomic,assign) float samplingRate;
+
+@property (nonatomic,assign) float * outputBuffer;
 @end
 
 @implementation NTAudioDataHelper
@@ -25,11 +26,38 @@ static NTAudioDataHelper * _instance;
     return _instance;
 }
 
--(void)initWithNumChannels:(UInt32)numChannels
+- (instancetype)init
 {
-    if (!self.numChannels) {
-        self.numChannels =  numChannels;
+    self = [super init];
+    if (self) {
+        //默认单音轨，采样率为44100
+        _numChannels = 1;
+        _samplingRate = 44100.0;
+        _outputBuffer = (float *)calloc(self.samplingRate, sizeof(float));
     }
+    return self;
+}
+
+-(void)initWithNumChannels:(UInt32)numChannels
+                sampleRate:(float)samplingRate
+{
+    self.numChannels =  numChannels;
+    self.samplingRate = samplingRate;
+}
+
+-(AudioBufferList)audioBufferListWithNewAudio:(float *)newData
+                                    numFrames:(UInt32)thisNumFrames
+                                  numChannels:(UInt32)thisNumChannels
+{
+    UInt32 numIncomingBytes = thisNumFrames*thisNumChannels*sizeof(float);
+    memcpy(self.outputBuffer, newData, numIncomingBytes);
+    
+    AudioBufferList outgoingAudio;
+    outgoingAudio.mNumberBuffers = 1;
+    outgoingAudio.mBuffers[0].mNumberChannels = thisNumChannels;
+    outgoingAudio.mBuffers[0].mDataByteSize = numIncomingBytes;
+    outgoingAudio.mBuffers[0].mData = self.outputBuffer;
+    return outgoingAudio;
 }
 
 -(AudioBufferList)audioBufferListWithData:(NSData*)data
@@ -43,11 +71,16 @@ static NTAudioDataHelper * _instance;
 }
 
 -(NSData*)dataWithNewAudio:(void*)newData
-                 numFrames:(UInt32)thisNumFrames
+                 numFrames:(UInt32)inNumberFrames
 {
-    UInt32 numIncomingBytes = thisNumFrames*self.numChannels*sizeof(float);
+#if TARGET_IPHONE_SIMULATOR
+    // this is a workaround for an issue with core audio on the simulator, //
+    //  likely due to 44100 vs 48000 difference in OSX //
+    if( inNumberFrames == 471 )
+        inNumberFrames = 470;
+#endif
+    UInt32 numIncomingBytes = inNumberFrames*self.numChannels*sizeof(float);
     memcpy(self.outputBuffer, newData, numIncomingBytes);
-    
     NSData * data = [NSData dataWithBytes:self.outputBuffer length:numIncomingBytes];
     return data;
 }

@@ -10,9 +10,13 @@
 #import <AudioToolbox/AudioToolbox.h>
 @interface NTAudioDataHelper : NSObject
 +(instancetype)sharedInstance;
--(void)initWithNumChannels:(UInt32)numChannels;
+-(void)initWithNumChannels:(UInt32)numChannels
+                sampleRate:(float)samplingRate;
 
+-(AudioBufferList)audioBufferListWithNewAudio:(float *)newData
+                                    numFrames:(UInt32)thisNumFrames
+                                  numChannels:(UInt32)thisNumChannels;
 -(AudioBufferList)audioBufferListWithData:(NSData*)data;
 -(NSData*)dataWithNewAudio:(void*)newData
-                 numFrames:(UInt32)thisNumFrames;
+                 numFrames:(UInt32)inNumberFrames;
 @end
