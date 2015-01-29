@@ -7,6 +7,12 @@
 //
 
 #import "ViewController.h"
+#import "NTAudioDataHelper.h"
+#import "NTComposeHelper.h"
+#import <AEAudioController.h>
+#import <AEAudioFileWriter.h>
+#import <AEBlockAudioReceiver.h>
+#import "NSString+DocumentDirectory.h"
 
 @interface ViewController ()
 
