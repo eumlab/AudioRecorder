@@ -10,5 +10,6 @@
 
 @interface NTComposeHelper : NSObject
 +(void)audioConnectWithAssertURLs:(NSArray*)urls
+                         fileName:(NSString*)fileName
                   completedHander:(void (^)(void))handler;
 @end

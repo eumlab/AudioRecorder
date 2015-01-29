@@ -12,6 +12,7 @@
 
 @implementation NTComposeHelper
 +(void)audioConnectWithAssertURLs:(NSArray*)urls
+                         fileName:(NSString *)fileName
                   completedHander:(void (^)(void))handler
 {
     AVMutableComposition * audioComposition =[AVMutableComposition composition];
@@ -35,7 +36,7 @@
     AVAssetExportSession * exportSession =
     [[AVAssetExportSession alloc] initWithAsset:audioComposition
                                      presetName:AVAssetExportPresetAppleM4A];
-    exportSession.outputURL = [@"ConnectedRecording.m4a" fileURLInDocumentDirectory];;
+    exportSession.outputURL = [fileName fileURLInDocumentDirectory];;
     exportSession.outputFileType = AVFileTypeAppleM4A;
     [exportSession exportAsynchronouslyWithCompletionHandler:handler];
 }
