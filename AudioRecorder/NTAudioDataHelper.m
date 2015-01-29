@@ -69,19 +69,4 @@ static NTAudioDataHelper * _instance;
     outgoingAudio.mBuffers[0].mData = (void*)data.bytes;
     return outgoingAudio;
 }
-
--(NSData*)dataWithNewAudio:(void*)newData
-                 numFrames:(UInt32)inNumberFrames
-{
-#if TARGET_IPHONE_SIMULATOR
-    // this is a workaround for an issue with core audio on the simulator, //
-    //  likely due to 44100 vs 48000 difference in OSX //
-    if( inNumberFrames == 471 )
-        inNumberFrames = 470;
-#endif
-    UInt32 numIncomingBytes = inNumberFrames*self.numChannels*sizeof(float);
-    memcpy(self.outputBuffer, newData, numIncomingBytes);
-    NSData * data = [NSData dataWithBytes:self.outputBuffer length:numIncomingBytes];
-    return data;
-}
 @end

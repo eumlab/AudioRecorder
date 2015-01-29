@@ -303,9 +303,8 @@ static NSString * const kConnectedFileName  = @"ConnectedRecord.aiff";
 {
     if (self.preRecordFrameEx<10) {
         AudioBufferList audioBufferList = *bufferList;
-        NSData * dataBytes =
-        [[NTAudioDataHelper sharedInstance] dataWithNewAudio:audioBufferList.mBuffers[0].mData
-                                                   numFrames:numFrames];
+        NSData * dataBytes = [NSData dataWithBytes:audioBufferList.mBuffers[0].mData
+                                            length:audioBufferList.mBuffers[0].mDataByteSize];
         [self.sampleCacheList addObject:dataBytes];
         if (self.sampleCacheList.count>self.maxMemoryCacheCount) {
             [self.sampleCacheList removeObjectAtIndex:0];

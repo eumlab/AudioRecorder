@@ -17,6 +17,4 @@
                                     numFrames:(UInt32)thisNumFrames
                                   numChannels:(UInt32)thisNumChannels;
 -(AudioBufferList)audioBufferListWithData:(NSData*)data;
--(NSData*)dataWithNewAudio:(void*)newData
-                 numFrames:(UInt32)inNumberFrames;
 @end
