@@ -5,7 +5,8 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 target 'AudioRecorder' do
 pod 'TheAmazingAudioEngine', '1.4.5'
-pod 'Novocaine', :path=>'/Users/demon/project/novocaine/Novocaine.podspec'
+pod 'Novocaine', :git=>'git@github.com:demon1105/novocaine.git'
+#pod 'Novocaine', :path=>'/Users/demon/project/novocaine/Novocaine.podspec'
 #pod 'EZAudio', '0.0.6'
 end
 
