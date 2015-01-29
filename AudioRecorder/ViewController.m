@@ -38,10 +38,13 @@ static NSString * const kConnectedFileName  = @"ConnectedRecord.aiff";
 @property (nonatomic,strong) AEAudioController * audioController;
 @property (nonatomic,strong) AEAudioFilePlayer * audioFilePlayer;
 @property (nonatomic,strong) AEBlockAudioReceiver * audioReceiver;
+@property (nonatomic,strong) AEAudioFileWriter * fileWriter;
+
+#ifdef kNovocaineLib
+@property (nonatomic,strong) AudioFileReader * fileReader;
+#endif
 
 @property (nonatomic,assign) UInt32 maxMemoryCacheCount;
-
-@property (nonatomic,strong) AEAudioFileWriter * fileWriter;
 @property (nonatomic,assign) int preRecordFrameEx;
 @end
 
@@ -123,11 +126,15 @@ static NSString * const kConnectedFileName  = @"ConnectedRecord.aiff";
 -(void)playAudio
 {
 #ifdef kNovocaineLib
-    AudioFileReader * fileReader=
-    [[AudioFileReader alloc] initWithAudioFileURL:[kConnectedFileName fileURLInDocumentDirectory]
-                                     samplingRate:44000
-                                      numChannels:2];
-    [fileReader play];
+    if (!self.fileReader) {
+        self.fileReader =
+        [[AudioFileReader alloc] initWithAudioFileURL:[kConnectedFileName fileURLInDocumentDirectory]
+                                         samplingRate:44000
+                                          numChannels:2];
+    }else{
+        [self.fileReader stop];
+    }
+    [self.fileReader play];
 #else
     if(self.audioFilePlayer){
         [self.audioController removeChannels:@[self.audioFilePlayer]];
